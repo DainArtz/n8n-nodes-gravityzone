@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-base.gravityZone",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Analytics", "Cybersecurity", "Development"],
+	"resources": {
+        "credentialDocumentation": [
+            {
+                "url": "https://www.bitdefender.com/business/support/en/77209-125277-public-api.html"
+            }
+        ],
+        "primaryDocumentation": [
+            {
+                "url": "https://www.bitdefender.com/business/support/en/77209-125277-public-api.html"
+            }
+        ]
+	}
+}

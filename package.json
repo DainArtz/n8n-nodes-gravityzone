@@ -1,38 +1,44 @@
 {
     "name": "n8n-nodes-gravityzone",
     "version": "0.1.0",
-    "description": "",
+    "description": "Custom n8n node which models the Bitdefender GravityZone public API.",
     "license": "MIT",
-    "homepage": "",
+    "homepage": "https://github.com/DainArtz/n8n-nodes-gravityzone",
     "keywords": [
-        "n8n-community-node-package"
+        "n8n-community-node-package",
+        "bitdefender",
+        "gravityzone",
+        "cybersecurity"
     ],
     "author": {
-        "name": "",
-        "email": "cabalan@bitdefender.com"
+        "name": "Calin Balan",
+        "email": "calin.balan03@gmail.com",
+        "url": "https://github.com/DainArtz"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/<...>/n8n-nodes-<...>.git"
+        "url": "https://github.com/DainArtz/n8n-nodes-gravityzone.git"
     },
-   "scripts": {
-		"build": "n8n-node build",
-		"build:watch": "tsc --watch",
-		"dev": "n8n-node dev",
-		"lint": "n8n-node lint",
-		"lint:fix": "n8n-node lint --fix",
-		"release": "n8n-node release",
-		"prepublishOnly": "n8n-node prerelease"
-	},
+    "scripts": {
+        "build": "n8n-node build",
+        "build:watch": "tsc --watch",
+        "dev": "n8n-node dev",
+        "lint": "n8n-node lint",
+        "lint:fix": "n8n-node lint --fix",
+        "release": "n8n-node release",
+        "prepublishOnly": "n8n-node prerelease"
+    },
     "files": [
         "dist"
     ],
     "n8n": {
         "n8nNodesApiVersion": 1,
         "strict": true,
-        "credentials": [],
+        "credentials": [
+            "dist/credentials/GravityZoneApi.credentials.js"
+        ],
         "nodes": [
-            "dist/nodes/Example/Example.node.js"
+            "dist/nodes/GravityZone/GravityZone.node.js"
         ]
     },
     "devDependencies": {
@@ -44,5 +50,11 @@
     },
     "peerDependencies": {
         "n8n-workflow": "*"
+    },
+    "dependencies": {
+        "@types/jest": "^30.0.0",
+        "@types/lodash": "^4.17.24",
+        "jest": "^30.4.2",
+        "lodash": "^4.18.1"
     }
 }
