@@ -1,5 +1,35 @@
 import { ApplicationError, IDataObject, IDisplayOptions, INodeExecutionData, INodeProperties, jsonParse } from "n8n-workflow";
-import merge from 'lodash/merge';
+
+type PlainObject = Record<string, unknown>;
+
+function isPlainObject(value: unknown): value is PlainObject {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function mergeObjects(base: PlainObject, overrides: PlainObject): PlainObject {
+	const result: PlainObject = { ...base };
+
+	for (const [key, value] of Object.entries(overrides)) {
+		const baseValue = result[key];
+
+		if (isPlainObject(baseValue) && isPlainObject(value)) {
+			result[key] = mergeObjects(baseValue, value);
+			
+			continue;
+		}
+
+		result[key] = Array.isArray(value) ? [...value] : value;
+	}
+
+	return result;
+}
+
+function mergeDisplayOptions(base: IDisplayOptions, overrides: IDisplayOptions): IDisplayOptions {
+	const baseObject = (base ?? {}) as PlainObject;
+	const overrideObject = (overrides ?? {}) as PlainObject;
+
+	return mergeObjects(baseObject, overrideObject) as IDisplayOptions;
+}
 
 export function updateDisplayOptions(
 	displayOptions: IDisplayOptions,
@@ -8,7 +38,7 @@ export function updateDisplayOptions(
 	return properties.map((nodeProperty) => {
 		return {
 			...nodeProperty,
-			displayOptions: merge({}, nodeProperty.displayOptions, displayOptions),
+			displayOptions: mergeDisplayOptions(nodeProperty.displayOptions ?? {}, displayOptions),
 		};
 	});
 }
